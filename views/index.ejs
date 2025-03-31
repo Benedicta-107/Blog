@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/styles.css">
+    <title>A Blog</title>
+    
+</head>
+<body>
+    <h1>This is my blog</h1>
+    
+    <!--
+        <%# <section>%>
+        <h2>
+            Post Your Blog Here!
+        </h2>
+        <%# if (locals.posts){ %>
+            <%# posts.forEach(function (text) { %>
+                    <h5><%# text %></h5>
+               <%# }) %>
+            <%#} %>
+    </section> %>
+    -->
+<section>
+        <!--All posts-->
+        <% if (posts.length > 0) {%>
+        
+
+            <% posts.forEach((post, i) => { %>
+                <h2><%= post.title %></h2>
+                <p><%- post.content %></p>
+            
+                <!-- Delete Form -->
+                <form action="/delete" method="POST">
+                    <input type="hidden" name="index" value="<%= i %>">
+                    <button type="submit">Delete</button>
+                </form>
+            
+                <!-- Update Form -->
+                <form action="/update" method="POST">
+                    <input type="hidden" name="index" value="<%= i %>">
+                    <input type="text" name="title" value="<%= post.title %>">
+                    <textarea name="content"><%- posts.content %></textarea>
+                    <button type="submit">Update</button>
+                </form>
+            <% }); %>
+            <% } %>
+                
+                <p><a href="new">Create a New Post</a></p>
+</section>
+
+</body>
+</html>
